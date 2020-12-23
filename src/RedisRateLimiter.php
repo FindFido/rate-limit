@@ -18,7 +18,7 @@ final class RedisRateLimiter implements RateLimiter, SilentRateLimiter
     /** @var string */
     private $keyPrefix;
 
-    public function __construct(Redis $redis, string $keyPrefix = '')
+    public function __construct(\yii\redis\Connection $redis, string $keyPrefix = '')
     {
         $this->redis = $redis;
         $this->keyPrefix = $keyPrefix;
@@ -73,7 +73,7 @@ final class RedisRateLimiter implements RateLimiter, SilentRateLimiter
             $this->redis->expire($key, $interval);
         }
 
-        return $current;
+        return (int) $current;
     }
 
     private function ttl(string $key): int
