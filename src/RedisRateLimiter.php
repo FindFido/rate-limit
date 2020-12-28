@@ -69,7 +69,7 @@ final class RedisRateLimiter implements RateLimiter, SilentRateLimiter
     {
         $current = $this->redis->incr($key);
 
-        if ($current === 1) {
+        if ($current === "1") {
             $this->redis->expire($key, $interval);
         }
 
